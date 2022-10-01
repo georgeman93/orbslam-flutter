@@ -1,0 +1,70 @@
+Day 1 
+Download the initial mp4 and figure out what his first steps are 
+- He just wanted to make a basic video player 
+
+Day 2 
+Make some notes on slam 
+- Constructing a map of the surrounding environment while updating our position within it 
+
+How might we do this?
+- Use openCV to track visual markers across frames. 
+- Use the camera specs to calculate the distance of the markers from the camera 
+- Then on the next frame we update our position in the map by observing the change in position of the markers
+- Then look for more markers to track add to out map 
+
+What if we dont have the camera specs?
+
+Apparently we are using feature slam not dense slam. It is not clear what the difference is   
+
+some slam links 
+https://faculty.cc.gatech.edu/~afb/classes/CS7495-Fall2014/presentations/visual_slam.pdf
+https://etd.ohiolink.edu/apexprod/rws_etd/send_file/send?accession=ouhonors1461320700&disposition=inline
+https://medium.com/data-breach/introduction-to-harris-corner-detector-32a88850b3f6
+https://arxiv.org/pdf/1502.00956.pdf
+
+Orb slam uses a FAST keypoint detector and BRIEF detector. 
+FAST is Features from Accelerated Segment Test. It uses a machine learning algorithm to find corners in the image. The idea being that corners are less likely to change in presentation as the camera translated or rotates  
+
+Day 3
+
+BRIEF stands for Binary Robust Independent Elementary Features. A binary string is generated to represent a keypoint/feature. XOR can be used to determine if two features match using only one machine instruction. 
+It wasn't designed to be invariant to rotation, so it performs poorly if the camera is rotated. 
+
+I will now hook up the cv2 functions to extract features from each frame of the video. I might need a dict to store them by there key. i wonder what meta data comes with them. 
+
+See https://docs.opencv.org/3.4/d1/d89/tutorial_py_orb.html for the extra modifications orbslam takes to account for orientation of the camera.
+
+Some points of confusion in the openCV orbslm docs 
+- what is meant by binary tests? Just features in a patch?
+- isn't the rotation different for each feature, so how does it make sense to apply one rotation matrix to all features?
+- what is a bit feature? What does it mean for them to have a variance and mean?
+- what is using a pyramid to find multiscale features?
+
+It looks like I am going to ge into the weeds with orb slam. 
+
+There are some key ideas I need to clarify at the top of the research paper. 
+
+Tracking - Presumably finding features in a frame and reidentifying them in the next frame. 
+Mapping - Using the features to construct a 3D map of the environment. Needs some way of transforming from image space to world space.  
+Relocalization - Sometime there are no familiar features to be found and in order to join up with the map we need to lookup the current view from a database to get a match. Need more info on how this is done  
+Loop Closing -  Slight error in map generation and localization can mean that travelling in a loop and result in previously detected features having different map locations. An algorithm is run to deform the map and our localizaed path so that the common features match up in map space and the loop is closed. 
+
+More questions 
+- How does the deformation work to close the loop?
+- How do we know if we are in a loop? Is it my detecting similar groupings of features?
+- How does image lookup work?
+
+Food for thought. I still need to read the ORB-SLAM paper. There is a high barrier to entry for this coding session. 
+
+Day 4 
+
+Skipped to 46:06
+
+This is now a git repo. I decided yesterday to combine whatever I make here with a flutter app, probably streaming some results to be visualized. 
+
+I've hooked up the basic openCV ORB keypoint detector and descriptor computation. They are drawn on each frame nicely. Next I suppose we need to track them across frames.
+
+Apparently the keypoints are not well distributed (they mostly sit on the treeline) and so we need to break the image up into grid to distribute them more evenly.
+
+The ORB-SLAM paper mentions that we want at least 5 features per grid cell.
+
