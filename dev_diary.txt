@@ -1,8 +1,11 @@
-Day 1 
+Session 1 
+
+Following along with https://www.youtube.com/watch?v=7Hlb8YX2-W8
+
 Download the initial mp4 and figure out what his first steps are 
 - He just wanted to make a basic video player 
 
-Day 2 
+Session 2 
 Make some notes on slam 
 - Constructing a map of the surrounding environment while updating our position within it 
 
@@ -25,7 +28,7 @@ https://arxiv.org/pdf/1502.00956.pdf
 Orb slam uses a FAST keypoint detector and BRIEF detector. 
 FAST is Features from Accelerated Segment Test. It uses a machine learning algorithm to find corners in the image. The idea being that corners are less likely to change in presentation as the camera translated or rotates  
 
-Day 3
+Session 3
 
 BRIEF stands for Binary Robust Independent Elementary Features. A binary string is generated to represent a keypoint/feature. XOR can be used to determine if two features match using only one machine instruction. 
 It wasn't designed to be invariant to rotation, so it performs poorly if the camera is rotated. 
@@ -34,7 +37,7 @@ I will now hook up the cv2 functions to extract features from each frame of the 
 
 See https://docs.opencv.org/3.4/d1/d89/tutorial_py_orb.html for the extra modifications orbslam takes to account for orientation of the camera.
 
-Some points of confusion in the openCV orbslm docs 
+Some points of confusion in the openCV orbslam docs 
 - what is meant by binary tests? Just features in a patch?
 - isn't the rotation different for each feature, so how does it make sense to apply one rotation matrix to all features?
 - what is a bit feature? What does it mean for them to have a variance and mean?
@@ -56,11 +59,15 @@ More questions
 
 Food for thought. I still need to read the ORB-SLAM paper. There is a high barrier to entry for this coding session. 
 
-Day 4 
+Session 4 
+
+links 
+https://docs.opencv.org/3.4/dd/d1a/group__imgproc__feature.html#ga1d6bb77486c8f92d79c8793ad995d541
+https://docs.opencv.org/4.6.0/dc/dc3/tutorial_py_matcher.html
 
 Skipped to 46:06
 
-This is now a git repo. I decided yesterday to combine whatever I make here with a flutter app, probably streaming some results to be visualized. 
+This is now a git repo. I decided yesterSession to combine whatever I make here with a flutter app, probably streaming some results to be visualized. 
 
 I've hooked up the basic openCV ORB keypoint detector and descriptor computation. They are drawn on each frame nicely. Next I suppose we need to track them across frames.
 
@@ -68,3 +75,32 @@ Apparently the keypoints are not well distributed (they mostly sit on the treeli
 
 The ORB-SLAM paper mentions that we want at least 5 features per grid cell.
 
+Now the keypoint are clumped together in the grid cells.
+
+There 3 main keypoint/corner detectors. FAST, Harris, and Shi-Tomasi. Apparently Shi-Tomasi is better without lower time constraints.
+openCV has a function to implement Shi-Tomasi which is called goodFeaturesToTrack. It is a big improvement over the previous method.
+
+So now we need to track the keypoints across frames.
+
+I'll start with the brute force matcher. It appears to work well enough but I get this error on frame 34
+
+Traceback (most recent call last):
+  File "/Users/georgeoconnor/geohot_livestreams/slam/./slam.py", line 39, in <module>
+    frame = cv2.drawMatches(prev_frame, orb.prev['kps'], frame, kps, matches[:10], None, flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)
+cv2.error: OpenCV(4.6.0) /Users/runner/work/opencv-python/opencv-python/opencv/modules/features2d/src/draw.cpp:242: error: (-215:Assertion failed) i2 >= 0 && i2 < static_cast<int>(keypoints2.size()) in function 'drawMatches'
+
+Tried a few things with no success
+
+Session 5 
+
+Quickly checking in, hes talking about using the fundemental matrix to filter results, better find out what that is... 
+Also, I think I should read some of the ORB-SLAM paper to get a better insight into where this is going. I am still a little hazy on how mapping will work. 
+These is no explicitly encoded depth information in the video, so how will we be able to assign a 3D position. 
+And beyond that, how exactly do we simultaneously use new matches to update the map and our position in the map? 
+- In that regard I suppose we compute out position delta out of other odometry sources and then do the map update using the new matches and position delta just calculated. 
+- But then in that case are we just using wheel angles and an IMU to get the position delta? OR are somehow using the matches without creating a chicken and egg situation?
+
+
+Session 5 
+
+Time to get a flutter app up and running and this thing on GitHub.
