@@ -5,11 +5,12 @@
 
 I wanted to learn about ORBSLAM and take the opportunity to demonstrate some things I have become familiar with such as openCV (python and c++ with cmake), websockets/asyncio, and flutter. 
 
-As I make progress with my python code to run orbslam on the sample videos, I will continue to add features to the app to demonstrate the results.
-I have also building out the same backend in c++ with vscode debugging and cmake to get a deep understanding of the data structures.
+As I make progress with my python code to run orbslam on sample videos, I will continue to add features to the app to demonstrate the results.
+I have also building out the same backend in c++ with vscode debugging and to get a deep understanding of the data structures.
 
 So far, you can view the results of feature matching across consecutive frames with controls to pause, play and restart the video. 
-Later I want to build and visualize a map of the environment (and the camera's position in it) as the video plays.
+Later I want to build and visualize a map of the environment with the ego position and orientation.
+Then I might add more controls to tweak the algorithm parameters from the UI and try different videos.
 
 <br/><br/>
 
@@ -63,6 +64,10 @@ then launch the flutter app
 flutter run -d chrome
 ```
 
+### C++ debugging
+
+Install the c++ extension for vscode
+Then just run and debug in vscode with the "Debug c++ slam" configuration. 
 
 
 
