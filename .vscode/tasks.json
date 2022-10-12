@@ -1,0 +1,31 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{ // This task is used to prepare the build environment
+			"label": "configure",
+			"type": "shell",
+			"options": {
+				"cwd": "${workspaceRoot}/c++_implementation/debug"
+			},
+			"command": "cmake",
+			"args": [
+				"-DCMAKE_BUILD_TYPE=Debug",
+				"."
+			],
+		},
+		{
+			"type": "shell",
+			"label": "build",
+			"command": "cmake",
+			"options": {
+				"cwd": "${workspaceRoot}/c++_implementation/debug"
+			},
+			"args": [
+				"--build",
+				".",
+				"--config",
+				"Debug"
+			],
+		}
+	]
+}

@@ -104,3 +104,39 @@ And beyond that, how exactly do we simultaneously use new matches to update the 
 Session 5 
 
 Time to get a flutter app up and running and this thing on GitHub.
+
+Session 6 
+
+I decided I should also build the equivalent server side code in c++. 
+So far, that involves opening a video file, reading the frames and tracking the features. Lets do that now.
+
+Ive had to run brew install opencv to get the c++ version 4 of opencv.
+I can use the reccomended cmake build system from the docs to build the project.
+
+Session 7 
+
+Just need to do a few things to get the c++ up to speed with the python...
+
+Session 8 
+
+Still doing the above. I had a moment of confusion over the difference between keypoints and descriptors. It is explained here https://answers.opencv.org/question/37985/meaning-of-keypoints-and-descriptors/
+Some key differences
+- keypoints contain location info, descriptors should be location invariant (if the visual feature is the same)
+- descriptor should be invariant to rotation, scale, and illumination
+I found some handy sample code to help with the c++ version. https://docs.opencv.org/4.6.0/d2/d1d/samples_2cpp_2lkdemo_8cpp-example.html#a20
+
+I should read this at some point and get up to speed with the essential matrix https://www.cs.cmu.edu/~16385/s17/Slides/12.2_Essential_Matrix.pdf
+I have now setup c++ debugging. Its always very handy to view the data structures in the debugger when doing image processing.
+Ok now c++ is up to speed. 
+
+Lets get the flutter app up and running. For now I just want to get the images from the c++ or the python code and display them in the flutter app.
+I can open a socket and send the frame over seperately, maybe I can make a button to allow the user to step through the frames.
+Maybe I make a proper H.265 stream? https://pub.dev/packages/video_player_web_hls might work. I could pipe images into ffmpeg and stream them to the app.
+
+Looking into HLS in more detail, I have my doubts that the added complexity will be worth it, especially if the user will just press buttons to step through frames.
+So for now I am using a socket to send images. I'll start on the python side first.
+
+Ok, now the image streaming is working, I can pause, play and restart. I'll add a frame rate slider and then move on to making it pretty. 
+
+
+

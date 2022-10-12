@@ -20,7 +20,7 @@ class ORBSLAM():
 
     def match(self, des1, des2):
         """Match descriptors from two images"""
-        print(des1)
+        # print(des1)
         matches = self.matcher.match(des1, des2)
         matches = sorted(matches, key = lambda x:x.distance)
         print(f"Found {len(matches)} matches")

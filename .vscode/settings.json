@@ -1,3 +1,6 @@
 {
-    "github.copilot.inlineSuggest.enable": true
+    "github.copilot.inlineSuggest.enable": true,
+    "C_Cpp.clang_format_style": "Google",
+    "C_Cpp.formatting": "vcFormat",
+    "editor.formatOnSave": true,
 }
