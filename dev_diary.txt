@@ -138,5 +138,15 @@ So for now I am using a socket to send images. I'll start on the python side fir
 
 Ok, now the image streaming is working, I can pause, play and restart. I'll add a frame rate slider and then move on to making it pretty. 
 
+Session 9
+
+I've done all sorts with flutter, but havent gone too deep customizing the UI themes. I'm going to look at a few examples of compelling dashboards online and try to match one. 
+
+Ok, seems like a blurred off white colour gradient background with some rounded corners is the way to go. 
+
+Alright the the UI has some nice rounded corners and funky colors. I suspect some people would hate the colors though. Oh well. 
+
+I have multiple widgets making seperate socket connections to the server, so next time I better handle that properly. 
+
 
 

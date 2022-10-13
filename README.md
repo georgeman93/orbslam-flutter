@@ -15,7 +15,7 @@ Then I might add more controls to tweak the algorithm parameters from the UI and
 <br/><br/>
 
 
-![alt text](ORBSLAM_Dashboard.jpg "Flutter app")
+![alt text](ORBSLAM_Dashboard2.jpg "Flutter app")
 
 
 ### TODO 
@@ -26,8 +26,11 @@ Then I might add more controls to tweak the algorithm parameters from the UI and
 - [x] Build an equivalent c++ version of the slam script so far
 - [x] Setup vscode c++ code debugging 
 - [x] Hook up commands from the UI back to the server
-- [ ] Make the app look fancier
-- [ ] Continue to build out the slam script and improve the UI
+- [x] Make the app look fancier
+- [ ] Make the server handle seperate socket connection for different widgets
+- [ ] Do a deep dive into the theory of mapping and localization
+- [ ] Continue to build out the slam script 
+- [ ] Stabilize the the UI 
 
 ## Setup 
 

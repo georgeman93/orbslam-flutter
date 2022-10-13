@@ -1,6 +1,10 @@
-import 'dart:typed_data';
-import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:flutter/material.dart';
+import './controls.dart';
+import './console.dart';
+import './slam_map.dart';
+import './frame_viewer.dart';
+import './dashboard_header.dart';
+import './infobar.dart';
 
 /// General layout of the dashboard.
 /// In the middle is an image display to get each frame from the camera.
@@ -16,65 +20,71 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  late WebSocketChannel channel;
-  late Stream videoStream;
-
-  @override
-  void initState() {
-    channel = WebSocketChannel.connect(Uri.parse('ws://localhost:8080'));
-    videoStream = channel.stream;
-
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('ORBSLAM Dashboard'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomCenter,
+              colors: [
+                const Color.fromARGB(255, 162, 255, 176).withRed(25),
+                const Color.fromARGB(255, 197, 255, 186)
+              ]),
+        ),
+        child: Row(
           children: [
-            StreamBuilder(
-                stream: videoStream,
-                builder: (context, socket) {
-                  if (socket.hasData) {
-                    return Image.memory(
-                      Uint8List.fromList(socket.data as Uint8List),
-                      gaplessPlayback: true,
-                    );
-                  } else {
-                    return const Text('No data');
-                  }
-                }),
-            const Text(
-              'Shi-Tomasi Corner Detection',
-            ),
-            ButtonBar(
-              alignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    channel.sink.add('play');
-                  },
-                  child: const Text('Play'),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    channel.sink.add('pause');
-                  },
-                  child: const Text('Pause'),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    channel.sink.add('restart');
-                  },
-                  child: const Text('Restart'),
-                ),
-              ],
+            // Expanded(flex: 1, child: SideBar()),
+            Expanded(
+              flex: 5,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Expanded(flex: 1, child: DashboardHeader()),
+                  Expanded(
+                    flex: 5,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          flex: 4,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              const Expanded(
+                                flex: 4,
+                                child: FrameViewer(),
+                              ),
+                              Expanded(
+                                flex: 4,
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: const [
+                                          Expanded(flex: 2, child: Controls()),
+                                          Expanded(flex: 4, child: Console()),
+                                        ],
+                                      ),
+                                    ),
+                                    const Expanded(flex: 1, child: SlamMap()),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const Expanded(flex: 1, child: InfoBar()),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
@@ -82,3 +92,7 @@ class _DashboardState extends State<Dashboard> {
     );
   }
 }
+
+      // const Text(
+      //             'Shi-Tomasi Corner Detection',
+      //           )o
