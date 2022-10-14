@@ -15,7 +15,7 @@ class _ConsoleState extends State<Console> {
           const EdgeInsets.only(top: 12.5, left: 25, right: 12.5, bottom: 50),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 144, 251, 144),
+        color: Theme.of(context).colorScheme.primary,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(

@@ -29,8 +29,8 @@ class _DashboardState extends State<Dashboard> {
               begin: Alignment.topLeft,
               end: Alignment.bottomCenter,
               colors: [
-                const Color.fromARGB(255, 162, 255, 176).withRed(25),
-                const Color.fromARGB(255, 197, 255, 186)
+                const Color.fromARGB(255, 195, 255, 204).withRed(100),
+                const Color.fromARGB(255, 175, 255, 183)
               ]),
         ),
         child: Row(

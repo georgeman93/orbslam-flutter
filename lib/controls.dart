@@ -27,7 +27,7 @@ class _ControlsState extends State<Controls> {
           const EdgeInsets.only(top: 12.5, left: 25, bottom: 12.5, right: 12.5),
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 144, 251, 144),
+        color: Theme.of(context).colorScheme.primary,
         borderRadius: BorderRadius.circular(10),
       ),
       child: ButtonBar(
@@ -41,24 +41,24 @@ class _ControlsState extends State<Controls> {
             width: 50,
             height: 50,
             decoration: BoxDecoration(
-              boxShadow: const [
+              boxShadow: [
                 BoxShadow(
-                    color: Color.fromARGB(255, 186, 186, 186),
-                    offset: Offset(1, 1))
+                    color: Theme.of(context).colorScheme.shadow,
+                    offset: const Offset(1, 1))
               ],
-              color: const Color.fromARGB(255, 82, 232, 82),
+              color: Theme.of(context).colorScheme.tertiary,
               borderRadius: BorderRadius.circular(10),
             ),
             child: IconButton(
                 onPressed: () {
                   channel.sink.add('play');
                 },
-                icon: const Icon(
+                icon: Icon(
                   Icons.play_arrow,
                   shadows: [
                     Shadow(
-                        color: Color.fromARGB(255, 186, 186, 186),
-                        offset: Offset(1, 1))
+                        color: Theme.of(context).colorScheme.shadow,
+                        offset: const Offset(1, 1))
                   ],
                 )),
           ),
@@ -66,24 +66,24 @@ class _ControlsState extends State<Controls> {
             width: 50,
             height: 50,
             decoration: BoxDecoration(
-              boxShadow: const [
+              boxShadow: [
                 BoxShadow(
-                    color: Color.fromARGB(255, 186, 186, 186),
-                    offset: Offset(1, 1))
+                    color: Theme.of(context).colorScheme.shadow,
+                    offset: const Offset(1, 1))
               ],
-              color: const Color.fromARGB(255, 82, 232, 82),
+              color: Theme.of(context).colorScheme.tertiary,
               borderRadius: BorderRadius.circular(10),
             ),
             child: IconButton(
                 onPressed: () {
                   channel.sink.add('restart');
                 },
-                icon: const Icon(
+                icon: Icon(
                   Icons.restart_alt,
                   shadows: [
                     Shadow(
-                        color: Color.fromARGB(255, 186, 186, 186),
-                        offset: Offset(1, 1))
+                        color: Theme.of(context).colorScheme.shadow,
+                        offset: const Offset(1, 1))
                   ],
                 )),
           ),
@@ -91,12 +91,12 @@ class _ControlsState extends State<Controls> {
               height: 50,
               padding: const EdgeInsets.only(left: 10, right: 10),
               decoration: BoxDecoration(
-                boxShadow: const [
+                boxShadow: [
                   BoxShadow(
-                      color: Color.fromARGB(255, 186, 186, 186),
-                      offset: Offset(1, 1))
+                      color: Theme.of(context).colorScheme.shadow,
+                      offset: const Offset(1, 1))
                 ],
-                color: const Color.fromARGB(255, 82, 232, 82),
+                color: Theme.of(context).colorScheme.tertiary,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Row(

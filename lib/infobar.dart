@@ -54,7 +54,7 @@ class _InfoBarState extends State<InfoBar> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 144, 251, 144),
+        color: Theme.of(context).colorScheme.primary,
         borderRadius: BorderRadius.circular(10),
       ),
       padding: const EdgeInsets.all(20),
@@ -72,7 +72,7 @@ class _InfoBarState extends State<InfoBar> {
           Expanded(
             child: SingleChildScrollView(
               child: Material(
-                color: Colors.transparent,
+                color: Theme.of(context).colorScheme.primary,
                 child: ListView.separated(
                     itemCount: links.length,
                     shrinkWrap: true,
@@ -89,14 +89,13 @@ class _InfoBarState extends State<InfoBar> {
                             RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10)),
                             1.0),
-                        tileColor: const Color.fromARGB(245, 182, 255, 188),
+                        tileColor: Theme.of(context).colorScheme.secondary,
+                        style: ListTileStyle.list,
                         title: Text(links[index][0]),
                         trailing: const Icon(Icons.arrow_forward_ios),
                         onTap: () {
                           launchUrl(links[index][1]);
                         },
-                        // dense: true,
-                        style: ListTileStyle.drawer,
                       );
                     }),
               ),
